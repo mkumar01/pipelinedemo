@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Git Checkout') {
               steps{  
-                sh 'git clone https://github.com/digitalocean/kubernetes-sample-apps.git'
+                sh 'git clone https://github.com/mkumar01/pipelinedemo.git'
                 sh 'cd pipelinedemo'
 
         }}
