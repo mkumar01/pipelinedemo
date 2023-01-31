@@ -20,7 +20,6 @@ pipeline {
         {
             steps{
             
-             sh 'docker ps -a'
              sh 'kubectl delete -f bookinfo-example/kustomize/resources/namespace.yaml'
         }}
         stage('Build Application Docker Image and deploy in K8 cluster'){
