@@ -2,33 +2,40 @@ pipeline {
     agent any
     stages {
         stage('Git Checkout') {
-                
+              steps{  
                 sh 'git clone https://github.com/digitalocean/kubernetes-sample-apps.git'
                 sh 'cd pipelinedemo'
 
-        }
+        }}
 
         stage('Cluster CleanUp')
         {
+            steps{
              sh 'kubectl delete -f bookinfo-example/kustomize/resources/namespace.yaml'
-        }
+        }}
         stage('Build Application Docker Image and deploy in K8 cluster'){
+            steps{
                 sh 'cd bookinfo-example'
                 sh 'kubectl apply -k bookinfo-example/kustomize'
-        }
+        }}
 
         stage('Validate running pods')
         {
+            steps{
             sh 'kubectl get all -n bookinfo'
+            }
         }
 
         stage('Port Forwarding')
         {
+            steps{
             sh 'kubectl port-forward service/productpage -n bookinfo 9080:9080'
-        }
+        }}
 
         stage('Upload to DockerHub'){
-            //upload to dockerhub
+           steps{
+             sh "echo done"
+           }
         }
         
     }
