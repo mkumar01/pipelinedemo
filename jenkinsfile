@@ -1,0 +1,37 @@
+pipeline {
+    agent any
+    stages {
+        stage(‘Git Checkout’) {
+            steps {
+                
+                sh 'git clone https://github.com/digitalocean/kubernetes-sample-apps.git'
+                sh 'cd kubernetes-sample-apps'
+])
+            }
+        }
+
+        stage('Cluster CleanUp')
+        {
+             sh 'kubectl delete -f bookinfo-example/kustomize/resources/namespace.yaml'
+        }
+        stage('Build Application Docker Image and deploy in K8 cluster'){
+                sh 'cd bookinfo-example'
+                sh 'kubectl apply -k bookinfo-example/kustomize'
+        }
+
+        stage('Validate running pods')
+        {
+            sh 'kubectl get all -n bookinfo'
+        }
+
+        stage('Port Forwarding')
+        {
+            sh 'kubectl port-forward service/productpage -n bookinfo 9080:9080'
+        }
+
+        stage('Upload to DockerHub'){
+            //upload to dockerhub
+        }
+        
+    }
+}
