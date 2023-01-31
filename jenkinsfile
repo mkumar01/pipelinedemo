@@ -19,7 +19,7 @@ pipeline {
           stage('List pods') {
             steps{
                   
-                sh './getpod.sh'
+                sh 'kubectl get pods'
         }
             
         }
