@@ -4,6 +4,8 @@ pipeline {
     stages {
        
          stage('List pods') {
+         
+               steps{
                     withKubeConfig([credentialsId: 'mukesh',
                     serverUrl: 'https://127.0.0.1:6443',
                     contextName: 'rancher-desktop',
@@ -11,6 +13,7 @@ pipeline {
                     ]) {
                          sh 'kubectl get pods'
                     }
+  }
   }
     
         stage('Clean Workspace'){
