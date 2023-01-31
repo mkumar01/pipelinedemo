@@ -15,6 +15,17 @@ pipeline {
                 sh 'cd pipelinedemo'
 
         }}
+        
+          stage('List pods') {
+            steps{
+                    withKubeConfig([credentialsId: 'jenkins-integration',
+                    serverUrl: 'https://127.0.0.1:6443',
+                    ]) {
+                sh 'kubectl get pods'
+        }
+            }
+        }
+        
 
         stage('Cluster CleanUp')
         {
