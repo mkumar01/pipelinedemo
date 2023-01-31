@@ -1,11 +1,11 @@
 pipeline {
     agent any
     stages {
-        stage(‘Git Checkout’) {
+        stage('Git Checkout') {
                 
                 sh 'git clone https://github.com/digitalocean/kubernetes-sample-apps.git'
                 sh 'cd pipelinedemo'
-       
+
         }
 
         stage('Cluster CleanUp')
